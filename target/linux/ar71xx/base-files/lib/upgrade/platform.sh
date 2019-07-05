@@ -555,7 +555,6 @@ platform_check_image() {
 	rb-911g-2hpnd|\
 	rb-911g-5hpnd|\
 	rb-911g-5hpacd|\
-	rb-912r-2nd|\
 	rb-912uag-2hpnd|\
 	rb-912uag-5hpnd|\
 	rb-921gs-5hpacd-r2|\
@@ -727,6 +726,7 @@ platform_check_image() {
 	rb-750up-r2|\
 	rb-911-2hn|\
 	rb-911-5hn|\
+	rb-912r-2nd|\
 	rb-931-2nd|\
 	rb-941-2nd|\
 	rb-951ui-2nd|\
@@ -881,7 +881,6 @@ platform_do_upgrade() {
 	rb-911g-2hpnd|\
 	rb-911g-5hpacd|\
 	rb-911g-5hpnd|\
-	rb-912r-2nd|\
 	rb-912uag-2hpnd|\
 	rb-912uag-5hpnd|\
 	rb-921gs-5hpacd-r2|\
