@@ -106,7 +106,7 @@ define add_jffs2_mark
 	echo -ne '\xde\xad\xc0\xde' >> $(1)
 endef
 
-PROFILE_SANITIZED := $(call sanitize,$(PROFILE))
+PROFILE_SANITIZED := $(call sanitize,$(subst DEVICE_,,$(PROFILE)))
 
 define split_args
 $(foreach data, \
@@ -361,7 +361,10 @@ $(KDIR)/root.%: kernel_prepare
 
 define Device/InitProfile
   PROFILES := $(PROFILE)
-  DEVICE_TITLE :=
+  DEVICE_TITLE = $$(DEVICE_VENDOR) $$(DEVICE_MODEL)$$(if $$(DEVICE_VARIANT), $$(DEVICE_VARIANT))
+  DEVICE_VENDOR :=
+  DEVICE_MODEL :=
+  DEVICE_VARIANT :=
   DEVICE_PACKAGES :=
   DEVICE_DESCRIPTION = Build firmware images for $$(DEVICE_TITLE)
 endef
@@ -413,6 +416,8 @@ define Device/Init
   FILESYSTEMS := $(TARGET_FILESYSTEMS)
 
   UBOOT_PATH :=  $(STAGING_DIR_IMAGE)/uboot-$(1)
+
+  DEFAULT :=
 endef
 
 DEFAULT_DEVICE_VARS := \
@@ -420,7 +425,8 @@ DEFAULT_DEVICE_VARS := \
   CMDLINE UBOOTENV_IN_UBI KERNEL_IN_UBI BLOCKSIZE PAGESIZE SUBPAGESIZE \
   VID_HDR_OFFSET UBINIZE_OPTS UBINIZE_PARTS MKUBIFS_OPTS DEVICE_DTS \
   DEVICE_DTS_CONFIG DEVICE_DTS_DIR BOARD_NAME UIMAGE_NAME SUPPORTED_DEVICES \
-  IMAGE_METADATA KERNEL_ENTRY KERNEL_LOADADDR UBOOT_PATH
+  IMAGE_METADATA KERNEL_ENTRY KERNEL_LOADADDR UBOOT_PATH DEVICE_VENDOR \
+  DEVICE_MODEL DEVICE_VARIANT
 
 define Device/ExportVar
   $(1) : $(2):=$$($(2))
@@ -589,6 +595,7 @@ Target-Profile-Name: $(DEVICE_TITLE)
 Target-Profile-Packages: $(DEVICE_PACKAGES)
 Target-Profile-hasImageMetadata: $(if $(foreach image,$(IMAGES),$(findstring append-metadata,$(IMAGE/$(image)))),1,0)
 Target-Profile-SupportedDevices: $(SUPPORTED_DEVICES)
+$(if $(DEFAULT),Target-Profile-Default: $(DEFAULT))
 Target-Profile-Description:
 $(DEVICE_DESCRIPTION)
 @@
