@@ -24,6 +24,11 @@ ifdef FIS_SUPPORT
   obj += fis.o
 endif
 
+all: mtd mtd_static
+
+mtd_static: $(obj) $(obj.$(TARGET))
+	$(CC) -static $^ -o $@ $(LDFLAGS)
+
 mtd: $(obj) $(obj.$(TARGET))
 clean:
 	rm -f *.o jffs2
