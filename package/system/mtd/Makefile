@@ -28,9 +28,22 @@ define Package/mtd
   TITLE:=Update utility for trx firmware images
 endef
 
+define Package/mtd-static
+  SECTION:=utils
+  CATEGORY:=Base system
+  DEPENDS:=+libubox
+  TITLE:=Update utility for trx firmware images (static version)
+endef
+
 define Package/mtd/description
  This package contains an utility useful to upgrade from other firmware or 
  older OpenWrt releases.
+endef
+
+define Package/mtd-static/description
+ This package contains an utility useful to upgrade from other firmware or 
+ older OpenWrt releases (static version).
+ Static version is for firmwares that was compiled without mtd.
 endef
 
 target=$(firstword $(subst -, ,$(BOARD)))
