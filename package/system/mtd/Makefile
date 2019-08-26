@@ -61,4 +61,10 @@ define Package/mtd/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mtd $(1)/sbin/
 endef
 
+define Package/mtd-static/install
+	$(INSTALL_DIR) $(1)/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/mtd_static $(1)/sbin/
+endef
+
 $(eval $(call BuildPackage,mtd))
+$(eval $(call BuildPackage,mtd-static))
