@@ -533,6 +533,10 @@ mikrotik_board_detect() {
 	*"mAPL-2nD")
 		name="rb-mapl-2nd"
 		;;
+	*"cAP L-2nD"|\
+	*"cAPL-2nD")
+		name="rb-capl-2nd"
+		;;
 	*"SXT 2nD r3")
 		name="rb-sxt-2nd-r3"
 		;;
