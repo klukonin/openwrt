@@ -735,6 +735,8 @@ platform_check_image() {
 	rb-lhg-5nd|\
 	rb-map-2nd|\
 	rb-mapl-2nd|\
+	rb-cap-2nd|\
+	rb-capl-2nd|\
 	rb-sxt-2nd-r3|\
 	rb-wap-2nd|\
 	rb-wapg-5hact2hnd|\
@@ -796,6 +798,8 @@ platform_do_upgrade() {
 	rb-lhg-5nd|\
 	rb-map-2nd|\
 	rb-mapl-2nd|\
+	rb-cap-2nd|\
+	rb-capl-2nd|\
 	rb-sxt-2nd-r3|\
 	rb-wap-2nd|\
 	rb-wapg-5hact2hnd|\
