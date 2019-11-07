@@ -1,6 +1,7 @@
 #!/bin/sh
 . /lib/netifd/netifd-wireless.sh
 . /lib/netifd/hostapd.sh
+. /lib/netifd/mac80211.sh
 
 init_wireless_driver "$@"
 
@@ -26,7 +27,7 @@ drv_mac80211_init_device_config() {
 	config_add_string tx_burst
 	config_add_int beacon_int chanbw frag rts
 	config_add_int rxantenna txantenna antenna_gain txpower distance
-	config_add_boolean noscan ht_coex
+	config_add_boolean noscan ht_coex acs_exclude_dfs
 	config_add_array ht_capab
 	config_add_array channels
 	config_add_boolean \
@@ -96,6 +97,10 @@ mac80211_hostapd_setup_base() {
 
 	[ "$auto_channel" -gt 0 ] && channel=acs_survey
 	[ "$auto_channel" -gt 0 ] && json_get_values channel_list channels
+
+	[ "$auto_channel" -gt 0 ] && json_get_vars acs_exclude_dfs
+	[ -n "$acs_exclude_dfs" ] && [ "$acs_exclude_dfs" -gt 0 ] &&
+		append base_cfg "acs_exclude_dfs=1" "$N"
 
 	json_get_vars noscan ht_coex
 	json_get_values ht_capab_list ht_capab tx_burst
@@ -403,11 +408,8 @@ mac80211_generate_mac() {
 find_phy() {
 	[ -n "$phy" -a -d /sys/class/ieee80211/$phy ] && return 0
 	[ -n "$path" ] && {
-		for phy in $(ls /sys/class/ieee80211 2>/dev/null); do
-			case "$(readlink -f /sys/class/ieee80211/$phy/device)" in
-				*$path) return 0;;
-			esac
-		done
+		phy="$(mac80211_path_to_phy "$path")"
+		[ -n "$phy" ] && return 0
 	}
 	[ -n "$macaddr" ] && {
 		for phy in $(ls /sys/class/ieee80211 2>/dev/null); do
@@ -736,6 +738,9 @@ mac80211_interface_cleanup() {
 	local phy="$1"
 
 	for wdev in $(list_phy_interfaces "$phy"); do
+		local wdev_phy="$(readlink /sys/class/net/${wdev}/phy80211)"
+		wdev_phy="$(basename "$wdev_phy")"
+		[ -n "$wdev_phy" -a "$wdev_phy" != "$phy" ] && continue
 		ip link set dev "$wdev" down 2>/dev/null
 		iw dev "$wdev" del
 	done

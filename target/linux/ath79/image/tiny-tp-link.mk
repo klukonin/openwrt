@@ -1,6 +1,5 @@
 include ./common-tp-link.mk
 
-
 define Device/tplink_tl-mr10u
   $(Device/tplink-4mlzma)
   ATH_SOC := ar9331
@@ -13,10 +12,11 @@ TARGET_DEVICES += tplink_tl-mr10u
 
 define Device/tplink_tl-mr3020-v1
   $(Device/tplink-4mlzma)
+  IMAGE_SIZE := 3840k
   ATH_SOC := ar9331
   DEVICE_MODEL := TL-MR3020
   DEVICE_VARIANT := v1
-  DEVICE_PACKAGES := kmod-usb-core kmod-usb-chipidea2 kmod-usb-ledtrig-usbport
+  DEVICE_PACKAGES := kmod-usb-chipidea2 kmod-usb-ledtrig-usbport
   TPLINK_HWID := 0x30200001
   SUPPORTED_DEVICES += tl-mr3020
 endef
@@ -27,7 +27,7 @@ define Device/tplink_tl-mr3040-v2
   ATH_SOC := ar9331
   DEVICE_MODEL := TL-MR3040
   DEVICE_VARIANT := v2
-  DEVICE_PACKAGES := kmod-usb-core kmod-usb-chipidea2 kmod-usb-ledtrig-usbport
+  DEVICE_PACKAGES := kmod-usb-chipidea2 kmod-usb-ledtrig-usbport
   TPLINK_HWID := 0x30400002
   SUPPORTED_DEVICES += tl-mr3040-v2
 endef
@@ -39,7 +39,7 @@ define Device/tplink_tl-mr3220-v1
   DEVICE_MODEL := TL-MR3220
   DEVICE_VARIANT := v1
   TPLINK_HWID := 0x32200001
-  DEVICE_PACKAGES := kmod-usb-core kmod-usb2 kmod-usb-ledtrig-usbport
+  DEVICE_PACKAGES := kmod-usb2 kmod-usb-ledtrig-usbport
   SUPPORTED_DEVICES += tl-mr3220-v1
 endef
 TARGET_DEVICES += tplink_tl-mr3220-v1
@@ -50,7 +50,7 @@ define Device/tplink_tl-mr3420-v1
   DEVICE_MODEL := TL-MR3420
   DEVICE_VARIANT := v1
   TPLINK_HWID := 0x34200001
-  DEVICE_PACKAGES := kmod-usb-core kmod-usb2 kmod-usb-ledtrig-usbport
+  DEVICE_PACKAGES := kmod-usb2 kmod-usb-ledtrig-usbport
   SUPPORTED_DEVICES += tl-mr3420-v1
 endef
 TARGET_DEVICES += tplink_tl-mr3420-v1
@@ -243,8 +243,11 @@ TARGET_DEVICES += tplink_tl-wr940n-v4
 define Device/tplink_tl-wr941-v2
   $(Device/tplink-4m)
   ATH_SOC := ar9132
-  DEVICE_MODEL := TL-WR941N/ND
+  DEVICE_MODEL := TL-WR941ND
   DEVICE_VARIANT := v2/v3
+  DEVICE_ALT0_VENDOR := TP-Link
+  DEVICE_ALT0_MODEL := TL-WR941N
+  DEVICE_ALT0_VARIANT := v2/v3
   TPLINK_HWID := 0x09410002
   TPLINK_HWREV := 2
 endef
@@ -253,8 +256,11 @@ TARGET_DEVICES += tplink_tl-wr941-v2
 define Device/tplink_tl-wr941-v4
   $(Device/tplink-4m)
   ATH_SOC := ar7240
-  DEVICE_MODEL := TL-WR941N/ND
+  DEVICE_MODEL := TL-WR941ND
   DEVICE_VARIANT := v4
+  DEVICE_ALT0_VENDOR := TP-Link
+  DEVICE_ALT0_MODEL := TL-WR941N
+  DEVICE_ALT0_VARIANT := v4
   TPLINK_HWID := 0x09410004
 endef
 TARGET_DEVICES += tplink_tl-wr941-v4
