@@ -157,8 +157,8 @@ define Device/tplink_archer-c7-v2
   TPLINK_HWID := 0xc7000002
   SUPPORTED_DEVICES += archer-c7
   IMAGES += factory-us.bin factory-eu.bin
-  IMAGE/factory-us.bin := append-rootfs | mktplinkfw factory -C US
-  IMAGE/factory-eu.bin := append-rootfs | mktplinkfw factory -C EU
+  IMAGE/factory-us.bin := tplink-v1-image factory -C US
+  IMAGE/factory-eu.bin := tplink-v1-image factory -C EU
 endef
 TARGET_DEVICES += tplink_archer-c7-v2
 
@@ -337,7 +337,7 @@ define Device/tplink_rex5x-v1
   $(Device/tplink-safeloader)
   SOC := qca9558
   IMAGE_SIZE := 6016k
-  DEVICE_PACKAGES := kmod-ath10k-ct ath10k-firmware-qca988x-ct
+  DEVICE_PACKAGES := kmod-ath10k-ct-smallbuffers ath10k-firmware-qca988x-ct
   TPLINK_HWID := 0x0
   TPLINK_HWREV := 0
 endef
@@ -373,6 +373,18 @@ define Device/tplink_re450-v2
   LOADER_TYPE := elf
 endef
 TARGET_DEVICES += tplink_re450-v2
+
+define Device/tplink_tl-mr6400-v1
+  $(Device/tplink-8mlzma)
+  SOC := qca9531
+  DEVICE_MODEL := TL-MR6400
+  DEVICE_VARIANT := v1
+  TPLINK_HWID := 0x64000001
+  DEVICE_PACKAGES := kmod-usb2 kmod-usb-net kmod-usb-net-rndis kmod-usb-serial \
+	kmod-usb-serial-option adb-enablemodem
+  SUPPORTED_DEVICES += tl-mr6400
+endef
+TARGET_DEVICES += tplink_tl-mr6400-v1
 
 define Device/tplink_tl-wdr3500-v1
   $(Device/tplink-8mlzma)
@@ -502,9 +514,9 @@ define Device/tplink_tl-wr2543-v1
   DEVICE_VARIANT := v1
   DEVICE_PACKAGES := kmod-usb2 kmod-usb-ledtrig-usbport
   TPLINK_HWID := 0x25430001
-  IMAGE/sysupgrade.bin := append-rootfs | mktplinkfw sysupgrade -v 3.13.99 | \
+  IMAGE/sysupgrade.bin := tplink-v1-image sysupgrade -v 3.13.99 | \
 	append-metadata | check-size $$$$(IMAGE_SIZE)
-  IMAGE/factory.bin := append-rootfs | mktplinkfw factory -v 3.13.99
+  IMAGE/factory.bin := tplink-v1-image factory -v 3.13.99
   SUPPORTED_DEVICES += tl-wr2543-v1
 endef
 TARGET_DEVICES += tplink_tl-wr2543-v1
