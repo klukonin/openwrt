@@ -179,6 +179,22 @@ define Device/ubnt_nanostation-ac-loco
 endef
 TARGET_DEVICES += ubnt_nanostation-ac-loco
 
+define Device/ubnt_nanostation-loco-m
+  $(Device/ubnt-xm)
+  DEVICE_MODEL := Nanostation Loco M
+  DEVICE_PACKAGES += rssileds
+  SUPPORTED_DEVICES += bullet-m
+endef
+TARGET_DEVICES += ubnt_nanostation-loco-m
+
+define Device/ubnt_nanostation-loco-m-xw
+  $(Device/ubnt-xw)
+  DEVICE_MODEL := Nanostation Loco M
+  DEVICE_PACKAGES += rssileds
+  SUPPORTED_DEVICES += loco-m-xw
+endef
+TARGET_DEVICES += ubnt_nanostation-loco-m-xw
+
 define Device/ubnt_nanostation-m
   $(Device/ubnt-xm)
   DEVICE_MODEL := Nanostation M
@@ -194,6 +210,14 @@ define Device/ubnt_nanostation-m-xw
   SUPPORTED_DEVICES += nanostation-m-xw
 endef
 TARGET_DEVICES += ubnt_nanostation-m-xw
+
+define Device/ubnt_picostation-m
+  $(Device/ubnt-xm)
+  DEVICE_MODEL := Picostation M
+  DEVICE_PACKAGES += rssileds
+  SUPPORTED_DEVICES += bullet-m
+endef
+TARGET_DEVICES += ubnt_picostation-m
 
 define Device/ubnt_rocket-m
   $(Device/ubnt-xm)
@@ -268,14 +292,14 @@ TARGET_DEVICES += ubnt_unifiac-lr
 define Device/ubnt_unifiac-mesh
   $(Device/ubnt_unifiac)
   DEVICE_MODEL := UniFi AC-Mesh
-  SUPPORTED_DEVICES += ubnt-unifiac-mesh
+  SUPPORTED_DEVICES += unifiac-lite
 endef
 TARGET_DEVICES += ubnt_unifiac-mesh
 
 define Device/ubnt_unifiac-mesh-pro
   $(Device/ubnt_unifiac)
   DEVICE_MODEL := UniFi AC-Mesh Pro
-  SUPPORTED_DEVICES += ubnt-unifiac-mesh-pro
+  SUPPORTED_DEVICES += unifiac-pro
 endef
 TARGET_DEVICES += ubnt_unifiac-mesh-pro
 
@@ -283,6 +307,6 @@ define Device/ubnt_unifiac-pro
   $(Device/ubnt_unifiac)
   DEVICE_MODEL := UniFi AC-Pro
   DEVICE_PACKAGES += kmod-usb2
-  SUPPORTED_DEVICES += ubnt-unifiac-pro
+  SUPPORTED_DEVICES += unifiac-pro
 endef
 TARGET_DEVICES += ubnt_unifiac-pro
