@@ -26,7 +26,7 @@ $(eval $(call KernelPackage,hwmon-core))
 
 define AddDepends/hwmon
   SUBMENU:=$(HWMON_MENU)
-  DEPENDS:=kmod-hwmon-core $(1)
+  DEPENDS:=+kmod-hwmon-core $(1)
 endef
 
 define KernelPackage/hwmon-ads1015
@@ -75,6 +75,21 @@ define KernelPackage/hwmon-adt7475/description
 endef
 
 $(eval $(call KernelPackage,hwmon-adt7475))
+
+
+define KernelPackage/hwmon-drivetemp
+  TITLE:=Hard disk drives with temperature sensor
+  KCONFIG:=CONFIG_SENSORS_DRIVETEMP
+  FILES:=$(LINUX_DIR)/drivers/hwmon/drivetemp.ko
+  AUTOLOAD:=$(call AutoLoad,60,drivetemp)
+  $(call AddDepends/hwmon,+kmod-ata-core +kmod-scsi-core)
+endef
+
+define KernelPackage/hwmon-drivetemp/description
+ Kernel module for Hard disk drives with temperature sensor
+endef
+
+$(eval $(call KernelPackage,hwmon-drivetemp))
 
 
 define KernelPackage/hwmon-gpiofan
